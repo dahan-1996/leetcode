@@ -54,3 +54,4 @@ class Solution(object):
         for i in range(1, num+1):
             results.append(results[i & (i-1)] + 1)
         return results
+// python .append： Append values to the end of an array.
