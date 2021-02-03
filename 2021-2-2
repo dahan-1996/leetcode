@@ -1,0 +1,80 @@
+trim a binary tree(669)
+(recrusion for Tres)
+Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. 
+Trimming the tree should not change the relative structure of the elements that will remain in the tree (i.e., any node's descendant should remain a descendant).
+It can be proven that there is a unique answer.
+//python
+IDEA:compare the left nodes and right nodes then recrusion
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def trimBST(self, root, low, high):
+        """
+        :type root: TreeNode
+        :type low: int
+        :type high: int
+        :rtype: TreeNode
+        """
+        def Trim(root):
+            if(root==None):
+                return None
+            if (root.val<low):
+                return Trim(root.right)
+            if(root.val>high):
+                return Trim(root.left)
+        
+            root.left=Trim(root.left)
+            root.right=Trim(root.right)
+            return root
+        
+        return Trim(root)
+ 
+Longest Substring Without Repeating Characters(3)
+Hashmap /sliding windows
+First idea: sliding window lookup, make sure the value is not/in the sw
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        lookup=[]
+        current_len =max_len=0
+        for i in range(len(s)):
+            val=s[i]
+            if val not in lookup:
+                current_len+=1
+                lookup.append(val)
+            else:
+                j=lookup.index(val)
+                lookup=lookup[j+1:]
+                lookup.append(val)
+                current_len=len(lookup)
+                
+            max_len=max(current_len,max_len)
+        return max_len
+Second： hash map
+from online
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        trace={}
+        start=max_len=0
+        for i,ch in enumerate(s):
+            if ch in trace and trace[ch]>=start:
+                max_len=max(max_len,i-start)
+                start=trace[ch]+1
+            trace[ch]=i
+        return max(max_len,len(s)-start)
+
+
+
+
+
