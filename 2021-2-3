@@ -48,7 +48,7 @@ class Solution(object):
             f=f.next.next
             if f==s:
                 s=head
-                while s!=f:
+                while s!=f://(到head距离相等)
                     s=s.next
                     f=f.next
                 else:
