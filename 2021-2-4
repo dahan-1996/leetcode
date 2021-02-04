@@ -1,0 +1,59 @@
+1.Longest Harmonious Subsequence(594)
+//calculate the numbers of every number,if there is a countious number after gets res
+class Solution(object):
+    def findLHS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        c=Counter(nums)
+        result=0
+        for x in c:
+            if x+1 in c:
+                result=max(result,c[x]+c[x+1])
+        return result
+            
+2.Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.(4)
+
+Follow up: The overall run time complexity should be O(log (m+n)).
+//idea:binary search because of O
+example A:1,2,4,6,7,15,25
+        B:2,4,5,7,12,46
+        length(A)=7
+        length(B)=6
+        left_boundary(A)=(7+1)/2
+        left_boundary(b)=(6+1)/2=3
+        so if left_boundary(A)<right_boundary(B)||left_boundary(B)<right_boundary(A)
+            postion confirmed
+        else move MIN List on
+         
+class Solution:
+    # @return a float
+    def findMedianSortedArrays(self, A, B):
+        lenA, lenB = len(A), len(B)
+        if (lenA + lenB) % 2 == 1: 
+            return self.getKth(A, B, (lenA + lenB)/2 + 1)
+        else:
+            return (self.getKth(A, B, (lenA + lenB)/2) + self.getKth(A, B, (lenA + lenB)/2 + 1)) * 0.5
+            
+    def getKth(self, A, B, k):
+        m, n = len(A), len(B)
+        if m > n:
+            return self.getKth(B, A, k)
+            
+        left, right = 0, m    
+        while left < right:
+            mid = left + (right - left) / 2
+            j = k - 1 - mid
+            if 0 <= j and j < n and A[mid] >= B[j]:
+                right = mid
+            else:
+                left = mid + 1
+            
+        Ai_minus_1, Bj = float("-inf"), float("-inf")
+        if left - 1 >= 0:
+            Ai_minus_1 = A[left - 1]
+        if k - 1 - left >= 0:
+            Bj = B[k - 1 - left]
+        
+        return max(Ai_minus_1, Bj)        
