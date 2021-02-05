@@ -1,0 +1,51 @@
+Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
+
+In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
+
+The canonical path should have the following format:
+
+The path starts with a single slash '/'.
+Any two directories are separated by a single slash '/'.
+The path does not end with a trailing '/'.
+The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period '.' or double period '..')
+Idea:stack pop
+Class Solution:
+    def SimplifyPath(self,path):
+       result[]
+       path_list=path_list.split('/')
+       for p in path_list:
+          if p:
+             if p=="..":
+                result.pop()
+             elif p=="."
+                countine
+             else:
+                result.append(p)
+          res='/'+'/'.join(result)
+        return res
+
+
+Longest Palindromic Substring python
+IDEA:dynamic programming important
+dp[i][j]||s[i]==s[j] so dp[i-1][j+1] true
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        n=len(s)
+        def getlen(l,r):
+            while l>=0 and r<n and s[l]==s[r]:
+                l-=1
+                r+=1
+            return r-l-1(over boundary,then should -1)
+        start=0
+        length=0
+        for i in range(n):
+            current=max(getlen(i,i),getlen(i,i+1))
+            if current<=length:
+                continue
+            length=current
+            start=i-(current-1)//2
+        return s[start:start+length]
