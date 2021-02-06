@@ -1,0 +1,68 @@
+10. Regular Expression Matching
+IDEA:DP :1.base case 2. update function 3. return value
+    dp[i][j]= string s with length i matches string p with length j
+First: bad idea :
+class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        if not p :
+            return not s
+        find_match=bool(s and p[0] in ['.',s[0]]) 
+        
+        if len(p)>=2 and p[1]=='*':
+            return self.isMatch(s,p[2:]) or (find_match and self.isMatch(s[1:],p))
+        else:
+            return find_match and self.isMatch(s[1:],p[1:])
+result:Runtime: 1524 ms, faster than 8.07% of Python online submissions for Regular Expression Matching.
+Memory Usage: 13.6 MB, less than 28.93% of Python online submissions for Regular Expression Matching.
+ O(2^n)
+ DP:very importatn and hard
+ class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        dp=[[False for _ in range(len(s)+1)] for _ in range(len(p)+1)]
+        dp[0][0]= True
+        for i in range(2,len(p)+1):
+            dp[i][0]=dp[i-2][0] and p[i-1]=='*'
+        for i in range(1,len(p)+1):
+            for j in range(1,len(s)+1):
+                if p[i-1]=='*':
+                    dp[i][j]=dp[i-2][j] or (dp[i][j-1] and p[i-2] in ['.', s[j-1]])
+                else:
+                    dp[i][j]=dp[i-1][j-1] and (p[i-1] in ['.', s[j-i]])
+        return dp[-1][-1]
+        
+ O(n^2)
+ 
+ Binary tree right side view(199)
+ IDea: DFS 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def rightSideView(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        def deep(root, result_list,level):
+            if not root:
+                return 
+            if root and level ==len(result_list):
+                result_list.append(root.val)
+            deep(root.right,result_list,level+1)
+            deep(root.left,result_list,level+1)
+            return result_list
+        return deep(root,[],0)
+        
