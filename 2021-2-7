@@ -1,0 +1,47 @@
+Shortest Distance to a Character(827)
+class Solution(object):
+    def shortestToChar(self, s, c):
+        """
+        :type s: str
+        :type c: str
+        :rtype: List[int]
+        S:loveleetcode
+        C:e
+        res:3,2,1,0,1,0,0,1,2,2,1,0
+        pos[e]:3,5,6
+        
+        """
+        pos,res=[],[]
+        p=0
+        for i in range(len(s)):
+            if (s[i]==c):
+                pos.append(i)
+                
+        for i in range(len(s)):
+            if i<pos[0]:
+                res.append(pos[0]-i)
+            elif i>pos[-1]:
+                 res.append(i-pos[-1])
+            elif i==pos[p]:
+                res.append(0)
+                p+=1
+
+            else:
+                res.append(min(pos[p]-i,i-pos[p-1]))
+
+        return res
+Maximum subarray(53):
+IDEA: dp 
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return
+        maxNum=CurNum=nums[0]
+        for num in nums[1:]:
+            CurNum=max(CurNum+num,num)
+            maxNum=max(CurNum,maxNum)
+        return maxNum
