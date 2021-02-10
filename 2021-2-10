@@ -1,0 +1,65 @@
+Copy List with Random Pointer
+IDea：graph resurive(cpoy) O(n)
+
+class Solution(object):
+    def __init__(self):
+            self.visitedDict={}# key is old value, value is new nodes
+    
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return None
+        if head in self.visitedDict:
+            new_node=self.visitedDict[head]
+            return new_node
+        else:
+            new_node=Node(head.val,None,None)
+            self.visitedDict[head]=new_node
+            new_node.next=self.copyRandomList(head.next)
+            new_node.random=self.copyRandomList(head.random)
+            return new_node
+Idea @：
+Iterator: with a next pointer which could traverse whole linked List.O(n)
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+class Solution(object):
+    def __init__(self):
+            self.visitedDict={}# key is old value, value is new nodes
+    
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+     
+        def Copy(current_node):
+            if not current_node:
+                return None
+            if current_node in self.visitedDict:
+                
+                return self.visitedDict[current_node]
+            else:
+                new_curr=Node(current_node.val,Node,Node)
+                self.visitedDict[current_node]=new_curr
+                return self.visitedDict[current_node]
+            
+        current_node=head
+        new_head=Copy(current_node)
+        new_curr=new_head
+        
+        while current_node:
+            new_curr.next=Copy(current_node.next)
+            new_curr.random=Copy(current_node.random)
+            new_curr=new_curr.next
+            current_node=current_node.next
+            
+        return new_node
