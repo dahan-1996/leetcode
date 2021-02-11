@@ -1,0 +1,61 @@
+Valid anagram(ez 242)
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s)!=len(t):
+            return False
+        lookup={}
+        for i in s:
+            if i in lookup:
+                lookup[i]+=1
+            else:
+                lookup[i]=1
+        lookup_j={}
+        for j in t:
+            if j in lookup_j:
+                lookup_j[j]+=1
+            else:
+                lookup_j[j]=1
+        if lookup==lookup_j:
+            return True
+        else:
+            return False
+            
+easiler way:
+class Solution(object):
+    def isAnagram(self, s, t):
+      if len(s)!=len(t):
+           return False
+      return sorted(s) == sorted(t)
+      
+      
+      
+Merge two sorted lists(ez 27)
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        if l1.val<=l2.val:
+            cur=l1
+            cur.next=self.mergeTwoLists(l1.next,l2)
+        else:
+            cur=l2
+            cur.next=self.mergeTwoLists(l1,l2.next)
+        return cur
+        
