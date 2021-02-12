@@ -1,0 +1,37 @@
+Number of Steps to Reduce a Number to Zero(1342)
+Given a non-negative integer num, return the number of steps to reduce it to zero.
+If the current number is even, you have to divide it by 2, otherwise, you have to subtract 1 from it.
+class Solution:
+    def numberOfSteps (self, num):
+        step=0
+        while(num>0):
+            if num % 2 ==0:
+                num=num//2
+            else:
+                num-=1
+            step+=1
+        return step
+        
+        
+ 67. Add Binary(两个数字位运算）
+ input: str
+ output:str
+ class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        def add(x,y,carry):
+            s=x+y+carry
+            return (s//2,s%2)
+        ml=max(len(a),len(b))
+        a=a.rjust(ml,'0')
+        b=b.rjust(ml,'0')
+        res=""
+        carry=0
+        for i in range(ml-1,-1,-1):
+            carry,s=add(int(a[i]),int(b[i]),carry)
+            res=str(s)+res
+        return "1"+res if carry else res
