@@ -1,0 +1,69 @@
+ Shortest Path in Binary Matrix
+ Idea: BFS,q.deque(),dict,add/append
+ class Solution(object):
+    def shortestPathBinaryMatrix(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        N=len(grid)
+        if grid[0][0]==1 or grid[N-1][N-1]==1:
+            return -1
+        
+        direction=([-1,-1],[-1,0],[0,-1],[1,1],[1,0],[0,1],[1,-1],[-1,1])
+        q=deque([(0,0,1)])
+        visited={(0,0)}
+        while q:
+            curx,cury,curd=q.popleft()
+            if curx==cury==N-1:
+                return curd
+            for dx,dy in direction:
+                tx,ty=dx+curx,dy+cury
+            
+                if (tx,ty) not in visited and 0<=tx < N and 0<=ty < N and grid[tx][ty]==0:
+                    visited.add((tx,ty))
+                    q.append((tx,ty,curd+1))
+                    
+        return -1
+
+Remove duplicates from sorted array(26)
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i=0
+        while i<len(nums)-1:
+            if nums[i]==nums[i+1]:
+                nums.pop(i)
+            else:
+                i+=1
+            
+        return len(nums)
+NEW：
+set()
+>>> x = set('eleven')
+>>> y = set('twelve')
+>>> x,y
+({'l', 'e', 'n', 'v'}, {'e', 'v', 'l', 't', 'w'})
+>>> x & y  #交集
+{'l', 'e', 'v'}
+>>> x | y  #并集
+{'e', 'v', 'n', 'l', 't', 'w'}
+>>> x - y  #差集
+{'n'}
+>>> y -x   #差集
+{'t', 'w'}
+>>> x ^ y  #补集
+{'t', 'n', 'w'}
+>>> y ^ x  #补集
+{'w', 'n', 't'}
+so a new solution is:
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        temp_set=sorted(set(nums))
+        
+        for i,j in enumerate(temp_set):
+            nums[i]=j
+        return len(temp_set)
