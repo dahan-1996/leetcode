@@ -1,0 +1,35 @@
+Is Graph Bipartite?(785)
+Idae:DFS,hash map,color problem
+      boundary color difference with nodes
+class Solution(object):
+    def isBipartite(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        color={}#hash map visited nodes
+        for node in range(len(graph)):
+            if node not in color:
+                stack=[node]
+                color[node]=1
+                while stack:
+                    node=stack.pop()
+                    for neibo in graph[node]:
+                        if neibo not in color:
+                            stack.append(neibo)
+                            color[neibo]=-color[node]
+                        else:
+                            if color[node]==color[neibo]:
+                                return False
+        return True
+
+
+27. Remove Element
+ez question:List.remove()
+class Solution(){
+  def Remove(self,nums,val):
+    while (val in nums):
+      nums.remove(val)
+     return len(nums)
+  
+}
