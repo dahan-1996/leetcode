@@ -1,0 +1,42 @@
+The K Weakest Rows in a Matrix
+Point: heapq modul. each time the smallest of heap element is popped(min heap).
+
+heapify(iterable) :- This function is used to convert the iterable into a heap data structure. i.e. in heap order.
+
+heappush(heap, ele) :- This function is used to insert the element mentioned in its arguments into heap. The order is adjusted, so as heap structure is maintained.
+heappop(heap) :- This function is used to remove and return the smallest element from heap. The order is adjusted, so as heap structure is maintained.
+Solution:
+class Solution(object):
+    def kWeakestRows(self, mat, k):
+        """
+        :type mat: List[List[int]]
+        :type k: int
+        :rtype: List[int]
+        ""
+        power=[]
+        for r,row in enumerate(mat):
+            temp=0
+            for n in row:
+                if n:
+                    temp+=1
+                else:
+                    break
+            power.append((temp,r))
+        heapq.heapify(power)
+        return [heapq.heappop(power)[1]  for _ in range(k)]
+        
+28. Implement strStr()
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if not haystack and not needle:
+            return 0
+        if not haystack: return -1
+        if needle in haystack:
+            return haystack.index(needle)
+        else:
+            return -1
