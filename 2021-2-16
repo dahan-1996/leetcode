@@ -1,0 +1,51 @@
+Letter Case Permutation(784)
+Idea:1.S^(1<<5) upper/lower while ASCALL 'A' -'a'=32
+     2.Dfs recrusive
+     a1b2->A1b2->A1b2....
+         ->a1b2
+
+class Solution(object):
+    def letterCasePermutation(self, S):
+        """
+        :type S: str
+        :rtype: List[str]
+        """
+        def dfs(S, index, path, res):
+            if index == len(S):
+                res.append(path)
+                return
+            else:
+                if S[index].isalpha():
+                    dfs(S, index+1, path + S[index].lower(), res)
+                    dfs(S, index+1, path + S[index].upper(), res)
+                else:
+                    dfs(S, index+1, path + S[index], res)
+                
+        res = []       
+        dfs(S, 0, '', res)
+        return res
+Subsets(78)
+bit mask:
+Idea: 1<<n means 2*n
+"""
+
+    1  2  3
+[0] 0  0  0
+[2] 0  1  0
+
+BIt masks
+"""
+
+
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        n=len(nums)
+        res=[]
+        for i in range(2**n,2**(n+1)):
+            bitmask=bin(i)[3:]
+            res.append([nums[j] for j in range(n) if bitmask[j]=='1'])
+        return res
