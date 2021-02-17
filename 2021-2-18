@@ -1,0 +1,39 @@
+Container With Most Water
+
+Solution:2 Array,one for left one for right.Move the shorter one to caculate the area.
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        res=0
+        l,r=0,len(height)-1
+        while l<=r:
+            res=max(res,min(height[r],height[l])*(r-l))
+            if height[r]<height[l]:
+                r-=1
+            else:
+                l+=1
+        return res
+
+ 35. Search Insert Position
+ Idae: 2 array
+ 
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        l,r=0,len(nums)-1
+        while l<=r:
+            mid=(l+r)//2
+            if target==nums[mid]:
+                return mid
+            elif target<nums[mid]:
+                r=mid-1
+            else:
+                l=mid+1
+        return l
