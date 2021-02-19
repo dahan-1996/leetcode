@@ -1,0 +1,87 @@
+Minimum Remove to Make Valid Parentheses
+IDEA:forward and backward,delete().List/str transformation
+
+class Solution(object):
+    def minRemoveToMakeValid(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        new=[]
+        result=[]
+        left=0
+        for i in s:
+            if i=='(':
+                left+=1
+            elif i==')':
+                if(left==0):
+                    continue
+                left-=1
+            new.append(i)
+        for j in new[::-1]:
+            if ( j=='(' and left>0 ):
+                left-=1
+                continue
+            result.append(j)
+        result.reverse()
+        return "".join(result)
+        
+topic Array:
+15. 3Sum
+First idea: O(N^3) brute force
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if len(nums)<3:
+            return None
+        nums.sort()
+        new_list=[]
+        res=[]
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                for k in range(j+1,len(nums)):
+                    if nums[i]+nums[j]+nums[k]==0:
+                        new_list=[nums[i],nums[j],nums[k]]
+                        if new_list in res:
+                            continue
+                        res.append(new_list)
+        return res
+TIMELIMIT (out of range)
+Idea 2:l and r 2 points
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        n=len(nums)
+        nums.sort()
+        res=[]
+        for i in range(n-2):
+            if nums[i]+nums[i+1]+nums[i+2]>0:
+                break
+            if nums[i]+nums[n-2]+nums[n-1]<0:
+                continue
+            if 0<i and nums[i]==nums[i-1]:
+                continue
+            l,r =i+1,n-1
+            while l<r:
+                tmp=nums[i]+nums[l]+nums[r]
+                if tmp==0:
+                    res.append([nums[i],nums[l],nums[r]])
+                    while l+1<r and nums[l]==nums[l+1]:
+                        l+=1
+                    l+=1
+                    while l<r-1 and nums[r]==nums[r-1]:
+                        r-=1
+                    r-=1
+                elif tmp<0:
+                    l+=1
+                elif tmp>0:
+                    r-=1
+                 
+        return res
+        
