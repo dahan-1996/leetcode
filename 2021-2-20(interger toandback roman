@@ -1,0 +1,44 @@
+Interger to Roman and ROman to interger:
+map;
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        value=['1','5','10','50','100','500','1000']
+        symbol=['I','V','X','L','C','D','M']
+    
+        new_map={"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
+        res=0
+        for i in range(len(s)):
+            if i>0 and new_map[s[i]]>new_map[s[i-1]]:
+                res+=new_map[s[i]]-2*new_map[s[i-1]]
+            else:
+                res+=new_map[s[i]]
+        return res
+
+
+The idea was making a map
+values[] very importatnt!
+class Solution(object):
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        
+        4000=5000-1000
+        values=[1000,900....]
+        symbols=["M","CM".....]
+        1994-1000=994-900=94-90=4
+        M/CM/XC/IV
+        MCMXCIV
+        """
+        values=[1000,900,500,400,100,90,50,40,10,9,5,4,1]
+        symbols=["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"]
+        res=""
+        for i in range(0,len(values)):
+            while num>=values[i]:
+                num-=values[i]
+                res+=symbols[i]
+        return res
