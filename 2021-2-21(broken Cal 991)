@@ -1,0 +1,44 @@
+Broken calculation:(recru)
+
+class Solution(object):
+    def brokenCalc(self, X, Y):
+        """
+        :type X: int
+        :type Y: int
+        
+        :rtype: int
+        X   -1=Y(odd)
+        X....*2=Y(even)
+        
+        """
+        if X>=Y:
+            return X-Y
+        if Y%2:
+            return self.brokenCalc(X,Y+1)+1
+        else:
+            return self.brokenCalc(X,Y//2)+1
+            
+3Sums closest
+2 array: same as 3 sums(LR)
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        diff = float('inf')
+        nums.sort()
+        for i in range(len(nums)):
+            lo, hi = i + 1, len(nums) - 1
+            while (lo < hi):
+                sum = nums[i] + nums[lo] + nums[hi]
+                if abs(target - sum) < abs(diff):
+                    diff = target - sum
+                if sum < target:
+                    lo += 1
+                else:
+                    hi -= 1
+            if diff == 0:
+                break
+        return target-diff
