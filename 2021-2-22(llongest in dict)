@@ -1,0 +1,28 @@
+Longest Word in Dictionary through Deleting
+
+Solution:idea , Subsequence;
+
+class Solution(object):
+    def findLongestWord(self, s, d):
+        """
+        :type s: str
+        :type d: List[str]
+        :rtype: str
+        """
+        #find if x match y
+        def match(x, y):
+            if not y: 
+                return True
+            if not x: 
+                return False
+            
+            if x[0]==y[0]: 
+                return match(x[1:], y[1:])
+            else:
+                return match(x[1:], y)
+        
+        #go through the list as key x (importatn)
+        for d in sorted(d, key = lambda x: (-len(x),x)):
+            if match(s,d):
+                return d
+        return ''
