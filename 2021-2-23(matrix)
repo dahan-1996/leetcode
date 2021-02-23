@@ -1,0 +1,41 @@
+Search a 2D Matrix II/I same
+
+Solution
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        m=len(matrix)
+        tmp=0
+        for i in range(0,m):
+            n=len(matrix[i])
+            for j in range(0,n):
+                if matrix[i][j]==target:
+                    tmp=1
+        if tmp==1:
+            return True
+        else:
+            return False
+            
+31. Next Permutation
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n=len(nums)
+        i=n-2
+        while i>=0:
+            if nums[i]>=nums[i+1]:
+                i-=1
+            else:
+                for j in range(n-1,i,-1):
+                    if nums[j]>nums[i]:
+                        nums[i],nums[j]=nums[j],nums[i]
+                        nums[i+1:]=sorted(nums[i+1:])
+                        return
+        nums.reverse()
