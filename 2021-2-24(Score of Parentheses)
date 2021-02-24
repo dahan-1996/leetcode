@@ -1,0 +1,42 @@
+Score of Parentheses
+
+Solution:
+'''
+recursion
+case 1, base case () score 1
+case 2, ABC => score A + score(BC) => score A + score B + score C
+case 3, (A) => 2*score A
+time complexity: best case "()()()...()"  O(n), worst case: "((()))" O(n²)
+space complexity: O(n) 
+'''
+
+class Solution:
+    def scoreOfParentheses(self, S) :
+        def score(S, l, r):
+            #case 1
+            if r - l == 1:
+                return 1
+            #case 2
+            b = 0
+            for i in range(l, r):
+                if S[i] == "(":
+                    b += 1
+                else:
+                    b -= 1
+                if b == 0:
+                    return score(S, l, i) + score(S, i+1, r)
+            #case 3
+            return 2 * score(S, l+1, r-1)
+        
+        return score(S, 0, len(S)-1)
+        
+        
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        return nums.index(target) if target in nums else -1
+        
