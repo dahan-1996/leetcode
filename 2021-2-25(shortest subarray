@@ -1,0 +1,54 @@
+Shortest Unsorted Continuous Subarray
+compare 2 arrays, find the differences
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        new_nums=nums[:]
+        new_nums.sort()
+        
+        Left=0
+        Right=0
+        if new_nums==nums:
+            return 0
+        for i in range(0,len(nums)-1):
+            if new_nums[i]==nums[i]:
+                continue
+            else:
+                Left=i
+                break
+        for j in range(len(nums)-1,-1,-1):
+            if new_nums[j]==nums[j]:
+                continue
+            else:
+                Right=j
+                break
+        return Right-Left+1
+
+
+Find First and Last Position of Element in Sorted Array
+Idea;: Fast the same here need to O(logN) so binary search.
+or just bubble sort / or List.index(target,start,end)
+class Solution:
+    def bsearch(self,i,j,nums,target):  
+        while(i<j):
+            mid=(i+j)//2
+            if(nums[mid]==target):
+                low=mid
+                high=mid
+                while(low-1>=0 and nums[low-1]==target):
+                    low=low-1
+                while(high+1<len(nums) and nums[high+1]==target):
+                    high=high+1
+                return low,high
+            elif(nums[mid]<target):
+                i=mid+1
+            elif(nums[mid]>target):
+                j=mid
+        return [-1,-1]
+    def searchRange(self, nums, target):
+        l,h=self.bsearch(0,len(nums),nums,target)
+        return [l,h]
+        
