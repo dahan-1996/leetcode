@@ -21,3 +21,29 @@ class Solution(object):
                 x+=1
                 
         return x==len(pushed)
+        
+39. Combination Sum
+:recursive
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        def dfs(cur,path):
+            if cur==0:
+                return ans.append(path)
+            for i in candidates:
+                if cur<i:
+                    break
+                if path and i<path[-1]:
+                    continue
+                dfs(cur-i,path+[i])
+            
+        candidates.sort()
+        
+        ans=[]
+        dfs(target,[])
+        return ans
