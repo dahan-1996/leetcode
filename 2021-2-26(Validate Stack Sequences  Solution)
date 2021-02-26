@@ -1,0 +1,23 @@
+Validate Stack Sequences
+
+Solution
+idea:stack.pop and stack.append() as push
+class Solution(object):
+    def validateStackSequences(self, pushed, popped):
+        """
+        :type pushed: List[int]
+        :type popped: List[int]
+        :rtype: bool
+        """
+        if len(pushed)!=len(popped):
+            return False
+        
+        stack=[]
+        x=0
+        for i in pushed:
+            stack.append(i)
+            while (stack and x<len(popped) and stack[-1]==popped[x] ):
+                stack.pop()
+                x+=1
+                
+        return x==len(pushed)
