@@ -1,0 +1,32 @@
+class Solution(object):
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        15/5=3
+        15:1111
+        5:0101=2^0+2^2
+        3:0011
+
+        
+        """
+        flag = (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0)
+        ret = 0
+        dividend, divisor = abs(dividend), abs(divisor)
+        
+        # 预处理二进制数组
+        binary = [0 for _ in range(33)]
+        # 第0位即2的零次方乘上除数，所以就是除数本身
+        binary[0] = divisor
+        for i in range(1, 33):
+            # 后面每一位是前面一位的两倍，因为二进制
+            # << 是位运算左移操作，等价于*2，但是速度更快
+            binary[i] = binary[i-1] << 1
+            
+        for i in range(32, -1, -1):
+            if binary[i] <= dividend:
+                dividend -= binary[i]
+                # 答案加上2^i
+                ret += (1 << i)
+        return min(ret, (1 << 31) - 1) if flag else -ret
