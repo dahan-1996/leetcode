@@ -1,0 +1,55 @@
+Maximum Frequency Stack
+
+Solution
+There is also O(1) pop/push solution: let us look at it at the following example: we push into stack numbers[0, 7, 3, 7, 8, 8, 8, 3, 4, 0]. 
+Then we will keep dictionary of stacks: {1: [0, 7, 3, 8, 4], 2: [7, 8, 3, 0], 3: [8]}. What is logic behind this? We have 3 items to keep:
+
+self.freq: frequencies of each element
+self.stacks: stack for each frequency, note that it is not stack for each element with indexes, but something different: 
+for each frequency we will keep elements we have with this frequency in the order like in original stack.
+self.maxfreq is maximal frequency.
+Now, how functions will work:
+
+push(self, x): when we add new element, first we need to increase it frequency. If new frequency is more than maximum frequency we have, we update it.
+Finally, we update our self.stacks for new element: put it to the end of stack.
+pop(self): first of all, element we are looking for is last element in self.stacks[self.maxfreq], so we pop it. 
+Also we need to decrease frequency of this element. Finally, if number of elements with highest frequency equal to 0, we can remove this stack. Then we return x.
+Complexity: each operation we do have just O(1) complexity, so both push and pop work just in O(1).
+
+genious!
+
+class FreqStack(object):
+
+    def __init__(self):
+        self.freq=Counter()
+        self.maxfreq=0
+        self.stack=defaultdict(list)
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        freq_x=self.freq[x]+1
+        self.freq[x]=freq_x
+        self.maxfreq=max(self.maxfreq,freq_x)
+        self.stack[freq_x].append(x)
+        
+        
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        x=self.stack[self.maxfreq].pop()
+        self.freq[x]-=1
+        if not self.stack[self.maxfreq]: self.maxfreq -= 1
+        return x    
+            
+        
+
+
+# Your FreqStack object will be instantiated and called as such:
+# obj = FreqStack()
+# obj.push(x)
+# param_2 = obj.pop()
