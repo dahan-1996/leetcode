@@ -1,0 +1,22 @@
+Max Consecutive Ones
+
+Solution
+
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        maxlen=0
+        left,right=0,0
+        while(left<len(nums) and right<len(nums)):
+            if nums[right]==1:
+                right+=1
+                maxlen=max(maxlen,right-left)
+            else:
+                maxlen=max(maxlen,right-left)
+                left=right+1
+                right+=1
+        return maxlen
+                
