@@ -1,0 +1,28 @@
+Find Numbers with Even Number of Digits
+class Solution(object):
+    def findNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        temp=0
+        for i in nums:
+            if len(str(i))%2==0:
+                temp+=1
+        return temp
+        
+Squares of a Sorted Array
+
+Solution:
+class Solution(object):
+    def sortedSquares(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        new_list=[]
+        new_nums=0
+        for i in nums:
+            new_nums=i*i
+            new_list.append(new_nums)
+        return sorted(new_list)
