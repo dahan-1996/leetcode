@@ -1,0 +1,30 @@
+Move Zeroes
+
+Solution
+
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n = nums.count(0)
+        for i in range(n):
+            nums.remove(0)
+            nums.append(0)
+
+Sort Array By Parity
+
+Solution
+class Solution(object):
+    def sortArrayByParity(self, A):
+        """
+        :type A: List[int]
+        :rtype: List[int]
+        """
+        i = 0
+        for j in range(len(A)):
+            if A[j] % 2 == 0:
+                A[j], A[i] = A[i], A[j]
+                i += 1
+        return A
