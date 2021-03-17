@@ -1,0 +1,69 @@
+Remove Duplicates from Sorted Array
+
+Solution
+class Solution:
+    def removeDuplicates(self, nums):
+        temp_set=sorted(set(nums))
+        
+        for i,j in enumerate(temp_set):
+            nums[i]=j
+        return len(temp_set)
+        
+ Check If N and Its Double Exist
+ class Solution(object):
+    def checkIfExist(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        for i in range(0,len(arr)):
+            temp=2*arr[i]
+            if temp in arr and arr.index(temp)!=i:
+                return True
+        return False
+        
+        
+Valid Mountain Array
+
+Solution
+    
+class Solution(object):
+    def validMountainArray(self, A):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        N = len(A)
+        i = 0
+
+        # walk up
+        while i+1 < N and A[i] < A[i+1]:
+            i += 1
+
+        # peak can't be first or last
+        if i == 0 or i == N-1:
+            return False
+
+        # walk down
+        while i+1 < N and A[i] > A[i+1]:
+            i += 1
+
+        return i == N-1
+        
+        
+Replace Elements with Greatest Element on Right Side
+class Solution(object):
+    def replaceElements(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: List[int]
+        """
+        m = -1
+        temp = arr[len(arr) - 1]
+        for i in range(len(arr) - 2, -1, -1):
+            m = max(temp, m)
+            temp = arr[i]
+            arr[i] = m
+
+        arr[len(arr)-1] = -1
+        return arr
