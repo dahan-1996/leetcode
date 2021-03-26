@@ -1,0 +1,41 @@
+Reverse String
+
+Solution:
+
+class Solution(object):
+    def reverseString(self, s):
+        """
+        :type s: List[str]
+        :rtype: None Do not return anything, modify s in-place instead.
+        """
+        s.reverse()
+Swap Nodes in Pairs
+
+Solution:
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy=ListNode(0)
+        res=dummy
+        dummy.next=head
+        while dummy.next and dummy.next.next:
+            first=dummy.next
+            second=dummy.next.next
+            # dummy.next=second(the following is important)
+            # second.next=first
+            # first.next=second.next
+            # dummy=dummy.next.next
+            first.next=second.next
+            second.next=first
+            dummy.next=second
+            dummy=dummy.next.next
+        return res.next
