@@ -1,0 +1,57 @@
+Height Checker
+class Solution(object):
+    def heightChecker(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        count=0
+        sorted_array=sorted(heights)
+        for i in range(len(heights)):
+            if sorted_array[i]!=heights[i]:
+                count+=1
+        return count
+        
+Third Maximum Number
+
+Solution:
+tips:
+set transform a list to a dict-> 2,2,3,1 to '1','2','3'
+so we dont need to duplicate
+class Solution(object):
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        s = set(nums)
+        if s == set():
+            return 0
+        if len(s) < 3:
+            return max(s)
+        else:
+            return sorted(s)[-3]
+            
+Find All Numbers Disappeared in an Array
+solution:
+class Solution(object):
+    def findDisappearedNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        
+        arr = []
+        i = 0
+        while i < len(nums):
+            if nums[nums[i] - 1] != nums[i] and nums[i] != i + 1:
+                aux = nums[i]
+                nums[i] = nums[nums[i] - 1]
+                nums[aux - 1] = aux
+            else:
+                i += 1
+                
+        for i in range(len(nums)):
+            if nums[i] != i + 1:
+                arr.append(i + 1)
+        return arr
