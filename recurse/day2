@@ -1,0 +1,72 @@
+Reverse Linked List
+
+Solution:
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return head
+        a = ListNode(val = head.val)
+        while head:
+            head = head.next
+            if head:
+                a= ListNode(val = head.val, next = a)
+        return a
+
+Search in a Binary Search Tree
+
+Solution
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def searchBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        if not root:
+            return None
+        if root.val==val:
+            return root
+        elif root.val<val:
+            return self.searchBST(root.right,val)
+        elif root.val>val:
+            return self.searchBST(root.left,val)
+        
+Pascal's Triangle II
+
+Solution: Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+
+class Solution(object):
+    def getRow(self, n):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        res=[]
+        prev=[]
+        for i in range(0,n+1):
+            part=[0]*(i+1)
+            part[0]=part[-1]=1
+            if i>1:
+                for j in range(1,i):
+                    part[j]=prev[j]+prev[j-1]
+            res.append(part)
+            prev=part
+        return(res[-1])
