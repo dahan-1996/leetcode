@@ -1,0 +1,107 @@
+Climbing Stairs
+
+Solution: similay with fibonacci
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n==1: return 1
+        
+        F=[None for _ in range(n+1)]
+        F[1]=1
+        F[2]=2
+        
+        for i in range (3,n+1):
+            F[i]=F[i-1]+F[i-2]
+            
+        return F[n]
+        
+        
+Maximum Depth of Binary Tree
+
+Solution:1 DFS O(n) , O(height)/max O(n)
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        
+        return max(self.maxDepth(root.left),self.maxDepth(root.right))+1
+Solution 2
+BFS:
+
+
+
+
+
+Pow(x, n)
+
+Solution
+
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        #return x**n
+        if n==0:
+            return 1
+        if n<0:
+            return self.myPow(1/x,-n)
+        ans=self.myPow(x,n//2)
+        ans*=ans
+        if n&1:
+            return x*ans
+        return ans
+        
+        
+K-th Symbol in Grammar( try again later)
+
+Solution
+       
+class Solution(object):
+    def kthGrammar(self, N, K):
+        """
+        :type N: int
+        :type K: int
+        :rtype: int
+        """
+        def solve(n,k,complement):
+            if k==1:
+                if complement==True:
+                    return 1
+                else:
+                    return 0
+            if k==2:
+                if complement==True:
+                    return 0
+                else:
+                    return 1
+            
+            length=2**(n-1)
+            if k>length//2:
+                
+                return solve(n-1,k-(length//2),not complement)
+            else:
+                return solve(n-1,k,complement)
+        
+        
+        if K==1:
+            return 0
+        if K==2:
+            return 1
+        
+        return solve(N,K,False)
